@@ -1,5 +1,9 @@
 #include frankohash.cpp;
 
-int mine() {
-   
+int mine(const hash256* header_hash) {
+   while (true) {
+      if() {
+         
+      }
+   }
 }
