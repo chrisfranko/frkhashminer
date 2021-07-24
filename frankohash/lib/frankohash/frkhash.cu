@@ -1,5 +1,12 @@
 #include frankohash.cpp;
 
+int add_value(char input[32]) {
+   int output = 0;
+   for(int i=0; i<=32; i++) {
+      output += (int)input[i]
+   }
+}
+
 int mine(const hash256* header_hash, int diff) {
    int nonce = 0;
    while (true) {
@@ -8,5 +15,6 @@ int mine(const hash256* header_hash, int diff) {
          return nonce;
          break;
       }
+      nonce += 1;
    }
 }
