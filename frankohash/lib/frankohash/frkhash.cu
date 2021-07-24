@@ -18,4 +18,5 @@ int mine(const hash256* header_hash, int diff) {
       nonce += 1;
    }
 }
+// fetch the header and mine it
 mine<<<4,4>>>()
