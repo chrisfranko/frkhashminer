@@ -1,5 +1,7 @@
 #include frankohash.cpp;
 
+
+//the mining functions
 int add_value(char input[32]) {
    int output = 0;
    for(int i=0; i<=32; i++) {
