@@ -18,3 +18,4 @@ int mine(const hash256* header_hash, int diff) {
       nonce += 1;
    }
 }
+mmine<<<4,4>>>()
