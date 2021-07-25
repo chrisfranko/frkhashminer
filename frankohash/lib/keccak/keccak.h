@@ -1,7 +1,6 @@
 // frankohash: C/C++ implementation of Frankohash, the Expanse Proof of Work algorithm.
 // Copyright 2018 Christopher Franko.
 // SPDX-License-Identifier: Apache-2.0
-//make a new keccak.c
 #include "../support/attributes.h"
 #include <frankohash/keccak.h>
 
