@@ -22,5 +22,4 @@ int mine(const hash256* header_hash, int diff) {
       nonce += 1;
    }
 }
-// add a to_hash256 function here to convert the header into a usable array
-mine<<<4,4>>>(to_hash256(eacc9ee71cf0811530b19d329b7b4ef9cea86af6e93888776b2718a517f7719f), 10000000)
+mine<<<4,4>>>(hash256((char[32])eacc9ee71cf0811530b19d329b7b4ef9cea86af6e93888776b2718a517f7719f), 10000000)
