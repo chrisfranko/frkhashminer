@@ -23,4 +23,4 @@ int mine(const hash256* header_hash, int diff) {
    }
 }
 // replace this with a function to get the header
-mine<<<4,4>>>()
+mine<<<4,4>>>(eacc9ee71cf0811530b19d329b7b4ef9cea86af6e93888776b2718a517f7719f, 10000000)
