@@ -23,3 +23,6 @@ int mine(const hash256* header_hash, int diff) {
    }
 }
 
+int miner(int header, int diff) {
+   return mine<<<4,4>>>(hash256(header), diff);
+}
