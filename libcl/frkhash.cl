@@ -295,28 +295,31 @@ __attribute__((reqd_work_group_size(WORKSIZE, 1, 1))) __kernel void search(
     state[23] = (uint2)(0);
     state[24] = (uint2)(0);
 
-    for (int pass = 0; pass < 2; ++pass)
-    {
-      // This is a very clever yet unintuitive solution
-      // Classic case of Just because you can, doesn't mean you should
-        KECCAK_PROCESS(state, select(5, 12, pass != 0), select(8, 1, pass != 0));
-        if (pass > 0)
-            break;
+    // for (int pass = 0; pass < 2; ++pass)
+    // {
+    //   // This is a very clever yet unintuitive solution
+    //   // Classic case of Just because you can, doesn't mean you should
+    //     KECCAK_PROCESS(state, 8, select(8, 4, pass != 0));
+    //     if (pass > 0)
+    //         break;
+    //
+    //     // state[12] = as_uint2(0x0000000000000001UL);
+    //     // state[13] = (uint2)(0);
+    //     // state[14] = (uint2)(0);
+    //     // state[15] = (uint2)(0);
+    //     // state[16] = as_uint2(0x8000000000000000UL);
+    //     // state[17] = (uint2)(0);
+    //     // state[18] = (uint2)(0);
+    //     // state[19] = (uint2)(0);
+    //     // state[20] = (uint2)(0);
+    //     // state[21] = (uint2)(0);
+    //     // state[22] = (uint2)(0);
+    //     // state[23] = (uint2)(0);
+    //     // state[24] = (uint2)(0);
+    // }
 
-        state[12] = as_uint2(0x0000000000000001UL);
-        state[13] = (uint2)(0);
-        state[14] = (uint2)(0);
-        state[15] = (uint2)(0);
-        state[16] = as_uint2(0x8000000000000000UL);
-        state[17] = (uint2)(0);
-        state[18] = (uint2)(0);
-        state[19] = (uint2)(0);
-        state[20] = (uint2)(0);
-        state[21] = (uint2)(0);
-        state[22] = (uint2)(0);
-        state[23] = (uint2)(0);
-        state[24] = (uint2)(0);
-    }
+    SHA3_512(state);
+    SHA3_256(state);
 
     if (get_local_id(0) == 0)
         atomic_inc(&g_output->hashCount);
@@ -342,6 +345,24 @@ static void SHA3_512(uint2* s)
         st[i] = (uint2)(0);
 
     KECCAK_PROCESS(st, 8, 8);
+
+    for (uint i = 0; i < 8; ++i)
+        s[i] = st[i];
+}
+
+static void SHA3_256(uint2* s)
+{
+    uint2 st[25];
+
+    for (uint i = 0; i < 8; ++i)
+        st[i] = s[i];
+
+    st[8] = (uint2)(0x00000001, 0x80000000);
+
+    for (uint i = 9; i != 25; ++i)
+        st[i] = (uint2)(0);
+
+    KECCAK_PROCESS(st, 8, 4);
 
     for (uint i = 0; i < 8; ++i)
         s[i] = st[i];

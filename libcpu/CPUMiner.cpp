@@ -153,6 +153,7 @@ void CPUMiner::search(const dev::exp::WorkPackage& w) {
     const auto header = frkhash::hash256_from_bytes(w.header.data());
     const auto boundary = frkhash::hash256_from_bytes(w.boundary.data());
     auto nonce = w.startNonce;
+    //ostringstream ass;
 
     while (true) {
         if (m_new_work.load(memory_order_relaxed)) // new work arrived ?
@@ -165,11 +166,13 @@ void CPUMiner::search(const dev::exp::WorkPackage& w) {
             break;
 
         auto r = frkhash::search(header, boundary, nonce, blocksize);
+
+
         if (r.solution_found) {
-            h256 mix{reinterpret_cast<byte*>(r.mix_hash.bytes), h256::ConstructFromPointer};
+            h256 mix{reinterpret_cast<uint8_t*>(r.mix_hash.bytes), h256::ConstructFromPointer};
             auto sol = Solution{r.nonce, mix, w, chrono::steady_clock::now(), m_index};
 
-            cnote << EthWhite << "Job: " << w.header.abridged() << " Solution: " << toHex(sol.nonce, HexPrefix::Add);
+            cnote << EthWhite << "Job: " << w.header.abridged() << " Solution: " << dev::toHex(sol.nonce, HexPrefix::Add);
             Farm::f().submitProof(sol);
         }
         nonce += blocksize;

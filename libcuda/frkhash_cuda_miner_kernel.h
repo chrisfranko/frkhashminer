@@ -32,6 +32,7 @@ struct Search_results {
 #define THREADS_PER_HASH (128 / 16)
 
 typedef struct {
+    uint32_t words[32/ sizeof(uint32_t)];
     uint4 uint4s[32 / sizeof(uint4)];
 } hash32_t;
 

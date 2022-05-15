@@ -37,19 +37,19 @@ inline hash256 hash_final(const hash512& seed){
 }
 }  // namespace
 
-/*
-result hash(const hash256& header_hash, uint64_t nonce) noexcept{
-    const hash512 seed = hash_seed(header_hash, nonce);
-    const hash256 mix_hash = hash256_from_bytes64(seed.bytes);
-    return {hash_final(seed), mix_hash};
-}
-*/
+
+// result hash(const hash256& header_hash, uint64_t nonce) noexcept{
+//     const hash512 seed = hash_seed(header_hash, nonce);
+//     const hash256 mix_hash = hash256_from_bytes64(seed.bytes);
+//     return {hash_final(seed), mix_hash};
+// }
+
 
 search_result search(const hash256& header_hash, const hash256& boundary, uint64_t start_nonce, size_t iterations) noexcept{
     const uint64_t end_nonce = start_nonce + iterations;
     for (uint64_t nonce = start_nonce; nonce < end_nonce; ++nonce)
     {
-        result r = hash(header_hash, nonce);
+        result r = frkhash_hash(&header_hash, nonce);
         if (is_less_or_equal(r.final_hash, boundary))
             return {r, nonce};
     }

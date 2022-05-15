@@ -19,7 +19,7 @@
     }
 
 #include "keccak.cuh"
-
+//#include "eth-sha3.cuh"
 #include "hash_it.cuh"
 
 __global__ void frkhash_search(Search_results* g_output, uint64_t start_nonce) {
@@ -79,5 +79,4 @@ __global__ void frkhash_calculate_dag_item(uint32_t start) {
 }
 */
 void set_header(hash32_t _header) { CUDA_CALL(cudaMemcpyToSymbol(d_header, &_header, sizeof(hash32_t))); }
-
 void set_target(uint64_t _target) { CUDA_CALL(cudaMemcpyToSymbol(d_target, &_target, sizeof(uint64_t))); }

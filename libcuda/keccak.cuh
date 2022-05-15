@@ -652,6 +652,10 @@ DEV_INLINE uint64_t keccak_f1600_final(uint2* state) {
     return devectorize(s[0] ^ keccak_round_constants[23]);
 }
 
+DEV_INLINE void SHA3_256(uint2* s) {
+
+}
+
 DEV_INLINE void SHA3_512(uint2* s) {
     uint2 t[5], u, v;
 

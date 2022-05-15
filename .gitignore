@@ -1,3 +1,13 @@
 .DS_*
 ./build
 build/*
+.vs
+*.a
+*.cmake
+CMakeFiles
+CMakeCache.txt
+Makefile
+_3rdParty/
+*/Makefile
+frkminer/*
+out
